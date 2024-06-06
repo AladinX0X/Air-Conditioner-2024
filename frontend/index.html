@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" id="theme-style" href="/frontend/styles.css">
+    <link rel="icon" href="/frontend/favicon.ico" type="image/x-icon">
+    <title>Air Conditioning Server</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<footer>
+    <div class="left-footer-content">
+        <div id="helpContainer">
+            <button id="helpBtn">Help</button>
+            <div id="contactInfo" style="display: none;">
+                <h4>Contact Us</h4>
+                <p>Email: support@fraunhoferiosp-ina.com</p>
+                <p>Phone: +1 (123) 456-7890</p>
+                <p>Address: Campusalle 11, Lemgo, DE</p>
+            </div>
+        </div>
+    </div>
+    <p>Copyright: Fraunhofer IOSP-INA 2023</p>
+    <div class="right-footer-content">
+        <button id="toggleThemeButton">Dark/Light Mode</button>
+    </div>
+</footer>
+
+<body>
+    <div class="container">
+
+        <div class="title-container">
+            <header class="header">
+                <h1 class="title">Air Conditioning Server</h1>
+            </header>
+        </div>
+
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="/frontend/logo.png" alt="Logo" class="logo-image">
+            </div>
+            <button id="homeButton" class="nav-button">Home</button>
+            <button id="aboutButton" class="nav-button">About</button>
+            <button id="contactButton" class="nav-button">Contact</button>
+            <button id="loginButton" class="nav-button">Log In</button>
+        </aside>
+            
+        <main class="main-content">
+            <p class="greeting">Welcome to the Air Conditioning Server!</p>
+            <div id="chart"></div>
+        </main>
+
+        <aside class="sidebar info-bar">
+            <p><strong>Current Temperature:</strong> <span id="currentTemp">N/A</span> °C</p>
+            <p><strong>Status:</strong> <span id="status">N/A</span></p>
+            <p><strong>Door Status:</strong> <span id="doorStatus">N/A</span></p>
+            <p><strong>Fan Status:</strong> <span id="fanStatus">N/A</span></p>
+            <p><strong>Current Time:</strong> <span id="currentTime">N/A</span></p>
+            <p><strong>Date:</strong> <span id="currentDate">N/A</span></p>
+        </aside>
+
+        <div id="aboutModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>About</h2>
+                <p>This is an Air Conditioning Server that simulates and displays data.</p>
+            </div>
+        </div>
+
+        <div id="contactModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>Contact</h2>
+                <p>Email: contact@fraunhofer.com</p>
+                <p>Phone: +123456789</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/frontend/app.js"></script>
+</body>
+</html>

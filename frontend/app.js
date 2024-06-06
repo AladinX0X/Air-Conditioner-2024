@@ -1,5 +1,5 @@
 const fetchData = () => {
-    return $.get("http://localhost:8001/api/data");
+    return $.get("http://localhost:8081/api/data");
 }
 
 let times = [];

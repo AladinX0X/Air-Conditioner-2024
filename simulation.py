@@ -6,8 +6,10 @@ import datetime as dt
 import argparse
 import logging
 from sqlalchemy import create_engine, Column, Integer, Float, String, Boolean, DateTime
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.declarative import declarative_base
 
+logging.basicConfig(level=logging.INFO)
 Base = declarative_base()
 
 class SimulationData(Base):
@@ -85,9 +87,13 @@ class Simulation(thr.Thread):
             "time": current_time,
             "door_open": self.door_open
         }
-
-        with self.engine.connect() as conn:
-            conn.execute(SimulationData.__table__.insert().values(data))
+        
+        try:
+            with self.engine.connect() as conn:
+                conn.execute(SimulationData.__table__.insert().values(data))
+                logging.info(f"Data inserted: {data}")
+        except SQLAlchemyError as e:
+            logging.error(f"Error inserting data: {e}")
 
     def simulate_door_open(self):
         self.door_open = True

@@ -24,11 +24,11 @@ body.dark-mode {
 }
 
 body.dark-mode .nav-button:hover {
-    background-color: #000000;
+    background-color: #007a61;
 }
 
 body.dark-mode .nav-button {
-    background-color: #000000;
+    background-color: #009374;
     color: white;
 }
 
@@ -40,7 +40,7 @@ body.dark-mode .sidebar, body.dark-mode .title-container, body.dark-mode .nav-bu
     position: fixed;
     bottom: 10px;
     right: 10px;
-    background-color: #000000;
+    background-color: #5f5f5f;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -50,7 +50,7 @@ body.dark-mode .sidebar, body.dark-mode .title-container, body.dark-mode .nav-bu
 }
 
 #toggleThemeButton:hover {
-    background-color: #000000;
+    background-color: #5f5f5f;
 }
 
 footer {
@@ -58,7 +58,7 @@ footer {
     justify-content: space-between;
     align-items: center;  
     padding: 10px 20px;
-    background-color: #000000;
+    background-color: #5f5f5f;
     position: fixed;
     width: 100%;
     bottom: 0;
@@ -86,7 +86,7 @@ footer {
 .title-container {
     grid-column: 1 / 4;
     text-align: center;
-    background-color: #000000;
+    background-color: #5f5f5f;
     padding: 1px;
 }
 
@@ -105,7 +105,7 @@ footer {
 }
 
 .logo-image {
-    width: 100px;
+    width: 200px;
 }
 
 .nav-button {
@@ -113,7 +113,7 @@ footer {
     width: 100%;
     margin: 10px 0;
     padding: 10px;
-    background-color: #000000;
+    background-color: #5f5f5f;
     color: white;
     border: none;
     border-radius: 5px;
@@ -122,7 +122,7 @@ footer {
 }
 
 .nav-button:hover {
-    background-color: #000000;
+    background-color: #5f5f5f;
     transform: translateY(-2px);
 }
 
@@ -189,7 +189,7 @@ footer {
     position: fixed;
     bottom: 10px;
     left: 10px;
-    background-color: #000000;
+    background-color: #5f5f5f;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -204,7 +204,7 @@ footer {
 }
 
 #helpBtn:hover {
-    background-color: #000000;
+    background-color: #5f5f5f;
 }
 
 #contactInfo {

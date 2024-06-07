@@ -7,6 +7,7 @@ import argparse
 import logging
 from sqlalchemy import create_engine, Column, Integer, Float, String, Boolean, DateTime
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
@@ -24,7 +25,8 @@ class SimulationData(Base):
 def create_engine_and_session():
     engine = create_engine('sqlite:///simulation_database.db?check_same_thread=False')
     Base.metadata.create_all(engine)
-    return engine
+    Session = sessionmaker(bind=engine)
+    return engine, Session
 
 class Simulation(thr.Thread):
     def __init__(self, target_temp, use_fan, auto_timer=900):
@@ -36,7 +38,7 @@ class Simulation(thr.Thread):
         self.status = 'ON'
         self.fan_status = 'OFF' if not use_fan else 'ON'
         self.door_open = False
-        self.engine = create_engine_and_session()
+        self.engine, self.Session = create_engine_and_session()
         self.start_time = time.time()
         self.start_temperature = self.temperature
         self.end_time = self.start_time + auto_timer if auto_timer else None
@@ -77,17 +79,22 @@ class Simulation(thr.Thread):
     def record_data(self):
         current_time = dt.datetime.now()
         current_date = current_time.date()
-        data = {
-            "temperature": self.temperature,
-            "status": self.status,
-            "fan_status": self.fan_status,
-            "date": current_date,
-            "time": current_time,
-            "door_open": self.door_open
-        }
-
-        with self.engine.connect() as conn:
-            conn.execute(SimulationData.__table__.insert().values(data))
+        data = SimulationData(
+            temperature=self.temperature,
+            status=self.status,
+            fan_status=self.fan_status,
+            date=current_date,
+            time=current_time,
+            door_open=self.door_open
+        )
+        session = self.Session()
+        try:
+            session.add(data)
+            session.commit()
+        except Exception as e:
+            print(f"Error recording data: {e}")
+        finally:
+            session.close()
 
     def simulate_door_open(self):
         self.door_open = True

@@ -32,7 +32,6 @@ def get_simulation_data():
                 "time": latest_data.time.strftime('%H:%M:%S'),
                 "door_open": latest_data.door_open,
             }
-            app.logger.info(f"Retrieved data: {data}")
         else:
             data = {
                 "temperature": "N/A",
@@ -45,7 +44,6 @@ def get_simulation_data():
     finally:
         session.close()
     return jsonify(data)
-
 
 @app.route('/', methods=['GET'])
 def serve_web_page():

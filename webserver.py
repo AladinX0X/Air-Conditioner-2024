@@ -1,6 +1,70 @@
 from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
+import osfrom flask import Flask, jsonify, send_from_directory
+from flask_cors import CORS
 import os
+import logging
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+from simulation import SimulationData
+
+app = Flask(__name__, static_folder='frontend')
+CORS(app)
+
+DATABASE_URL = 'sqlite:///simulation_database.db?check_same_thread=False'
+engine = create_engine(DATABASE_URL, echo=True)
+Session = sessionmaker(bind=engine)
+
+logging.basicConfig(level=logging.DEBUG)
+
+@app.route('/api/data', methods=['GET'])
+def get_simulation_data():
+    session = Session()
+    try:
+        latest_data = session.query(SimulationData).order_by(SimulationData.id.desc()).first()
+        if latest_data:
+            data = {
+                "temperature": latest_data.temperature,
+                "status": latest_data.status,
+                "fan_status": latest_data.fan_status,
+                "date": latest_data.date.strftime('%Y-%m-%d'),
+                "time": latest_data.time.strftime('%H:%M:%S'),
+                "door_open": latest_data.door_open,
+            }
+        else:
+            data = {
+                "temperature": "N/A",
+                "status": "N/A",
+                "fan_status": "N/A",
+                "date": "N/A",
+                "time": "N/A",
+                "door_open": False,
+            }
+    except Exception as e:
+        logging.error("Error retrieving data: %s", e)
+        data = {
+            "temperature": "Error",
+            "status": "Error",
+            "fan_status": "Error",
+            "date": "Error",
+            "time": "Error",
+            "door_open": "Error",
+        }
+    finally:
+        session.close()
+    return jsonify(data)
+
+@app.route('/', methods=['GET'])
+def serve_web_page():
+    return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/<path:filename>', methods=['GET'])
+def serve_static_file(filename):
+    return send_from_directory(app.static_folder, filename)
+
+if __name__ == "__main__":
+    app.run(port=8081)
+
 import time
 import threading
 import webbrowser

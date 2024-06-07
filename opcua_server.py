@@ -105,7 +105,6 @@ def main():
     web_server_thread = threading.Thread(target=lambda: app.run(port=args.port))
     web_server_thread.daemon = True
     web_server_thread.start()
-
     web_browser_thread = threading.Thread(target=webbrowser.open_new_tab, args=(f"http://localhost:{args.port}/",))
     web_browser_thread.start()
 
